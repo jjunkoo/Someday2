@@ -1,0 +1,66 @@
+/* 로그인 페이지 컨테이너 */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 */
+    background-color: #f4f4f9;
+    text-align: center;
+    padding-top: 20px; /* 제목 아래 공간 확보 */
+    box-sizing: border-box;
+}
+
+/* 페이지 제목 스타일 */
+.page-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    background-color: #e0e7ff; /* 배경 색상 */
+    padding: 20px;
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    width: 80%; /* 화면에 맞게 크기 조정 */
+    text-align: center;
+    margin-bottom: 20px; /* 제목과 안내 문구 사이 간격 */
+}
+
+/* 정보 문구 스타일 */
+.info-part {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px; /* 로그인 버튼과의 간격 */
+}
+
+/* 로그인 버튼 스타일 */
+.login-button {
+    padding: 20px 40px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #4285f4;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 로그인 버튼 호버 효과 */
+.login-button:hover {
+    background-color: #357ae8;
+    transform: scale(1.05);
+}
+
+.center-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: #e8eef3; /* 배경 색상 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    max-width: 400px; /* 최대 너비 설정 */
+    margin-top: 20px; /* 제목과의 간격 */
+
+}
