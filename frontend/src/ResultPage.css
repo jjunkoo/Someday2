@@ -1,0 +1,196 @@
+/* container 스타일 */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* content-row 스타일 */
+.content-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+/* box 스타일 */
+.box {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+    background-color: #e6e6e6;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* OX 버튼 그룹 */
+.ox-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.ox-button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.ox-button.selected {
+    background-color: #4285f4;
+    color: #fff;
+}
+
+/* feedback-button 스타일 */
+.feedback-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4285f4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
+    transition: background-color 0.3s;
+}
+
+.feedback-button:hover {
+    background-color: #357ae8;
+}
+
+/* button-row 스타일 */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* schedule-button 스타일 */
+.schedule-button {
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.schedule-button:hover {
+    background-color: #5a6268;
+}
+
+/* 모달 스타일 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    position: relative;
+    text-align: center;
+}
+
+/* 닫기 버튼 */
+.close-modal-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4285f4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* 별점 스타일 */
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.3s;
+}
+
+.star.filled {
+    color: #f4b400;
+}
+
+/* 피드백 텍스트 입력 */
+.feedback-textarea {
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: none;
+    margin-top: 10px;
+}
+
+.time-box{
+    width: 10%;
+    padding: 15px;
+    font-size: 13px;
+    text-align: center;
+    color: #555;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.name-box{
+    width: 10%;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cbox {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,134 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .title {
+    width: 90%;
+    background-color: #e0e0e0;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  }
+  
+  .content-row1 {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    margin-bottom: 20px;
+    gap: 20px; /* 간격 조정 */
+  }
+  
+  .label {
+    width: 100px;
+    background-color: #e0e0e0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    min-width: 100px;
+  }
+  
+  .input-box {
+    width: 65%;
+    background-color: #f7f7f7;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-box {
+    width: 80%;
+    height: 100px;
+    background-color: #f7f7f7;
+    color: #333;
+    font-size: 16px;
+    padding: 12px;
+    resize: none;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .generate-button {
+    background-color: #6c63ff;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .generate-button:hover {
+    background-color: #5849e6;
+    transform: translateY(-2px);
+  }
+
+  .back-button {
+    background-color: #5a8dee; /* 보라색과 잘 어울리는 진한 블루 */
+    color: #ffffff; /* 흰색 글씨 */
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .back-button:hover {
+    background-color: #3a6fc9; /* 호버 시 더 진한 남색 */
+    transform: translateY(-2px);
+  }
+
+  .date-picker {
+    width: 100%;
+    max-width: 200px; /* 날짜 선택 필드의 최대 너비 */
+    padding: 12px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .date-picker input {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .make-gap{
+    display: flex;
+    gap: 10px;
+  }

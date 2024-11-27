@@ -1,0 +1,42 @@
+# Django 및 관련 패키지
+Django==4.1.13
+djangorestframework==3.14.0
+django-cors-headers==4.4.0
+djongo==1.3.6  # MongoDB 연동을 위한 패키지
+
+# Celery 및 관련 패키지
+celery==5.4.0
+redis==5.2.0  # Celery 브로커로 Redis 사용 시 필요
+
+# AWS SDK (필요 시)
+boto3<=1.15.18
+
+# Google API 관련 라이브러리
+google-api-python-client==2.149.0
+google-auth==2.35.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==0.4.6  # TensorFlow와 호환되도록 수정
+
+# pandas 및 scikit-learn 라이브러리
+pandas==1.3.5
+scikit-learn==1.0.2
+numpy==1.21.6
+scipy==1.7.3
+
+# TensorFlow
+tensorflow==2.9.1
+
+# Transformers 라이브러리
+transformers==4.8.1
+
+# PyTorch
+torch>=1.7.0,<=1.10.1
+
+# 기타 필수 패키지
+asgiref==3.8.1
+gunicorn==20.1.0  # WSGI HTTP 서버
+
+# 선택적 패키지 (필요 시 추가)
+cachetools==5.5.0
+protobuf==3.19.6  # TensorFlow와 호환되도록 수정
+social-auth-app-django==5.0.0  # 소셜 인증 필요 시
