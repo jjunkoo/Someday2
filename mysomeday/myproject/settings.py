@@ -25,9 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-$e8rgrh^2m3*g3+d^%nhr6l&95+hps457#b96%pnemoqg_r_lv"
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -90,7 +87,7 @@ DATABASES = {
         'NAME': 'someday',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            "host" : "mongodb+srv://jjunkoo:ieqkGoo21ILBXFdi@someday.onwj3.mongodb.net/"
+            "host" : ""
         }
     }
 }
