@@ -28,7 +28,7 @@ ml_models.py
   
 - parse_extracted_time , get_time_block , create_sequences , split_into_time_blocks , preprocess_data
   
-  모델 학습을 위해 데이터를 전처리 하는 함
+  모델 학습을 위해 데이터를 전처리 하는 함수
   
   시간 정보를 토대로 사용자가 선호하는 활동을 학습하는 방식을 사용하였기에 2시간 단위의 time block을 생성하여 활동 , 장소 , 시간을 토대로 시퀀스 생성
   
