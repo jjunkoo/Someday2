@@ -30,4 +30,6 @@ __pycache__/
 
 docker-compose.yml
 Dockerfile
-saved_transformer_model/
+mysomeday/saved_lstm_model/
+
+requirements2.txt

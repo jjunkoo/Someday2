@@ -340,3 +340,27 @@ def check_model_status(request):
     
     return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
 
+@csrf_exempt
+def make_schedule(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            time = data.get("date")
+
+            # Celery 작업 호출
+            result = model_predict.delay(time)
+
+            try:
+                # 작업 결과 대기
+                predicted_schedule = result.get(timeout=60)  # 최대 60초 대기
+                request.session['predicted_schedule'] = predicted_schedule
+            except Exception as e:
+                print(f"Error while waiting for result: {e}")
+                return JsonResponse({"status": "error", "message": f"Failed to get result: {str(e)}"}, status=500)
+
+            # 결과 반환
+            return JsonResponse({'status': 'success', "result": predicted_schedule})
+
+        except Exception as e:
+            print(f"Error while processing request: {e}")
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)

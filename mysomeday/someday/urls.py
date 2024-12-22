@@ -26,4 +26,6 @@ urlpatterns = [
     path('delete/', views.delete_event, name = "delete_events"),
     path('refresh/',views.refresh_event, name = "refresh_events"),
     path('check_model_status/', views.check_model_status, name='check_model_status'),
+    path('make_schedule/',views.make_schedule,name="make_schedule"),
+
 ]

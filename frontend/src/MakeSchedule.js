@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './MakeSchedule.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function MakeSchedule(){
     const navigate = useNavigate();
@@ -12,7 +13,19 @@ function MakeSchedule(){
         window.history.back();
     }
     const goResult = () => {
-        navigate('/result');
+      axios.post('http://localhost:8000/api/make_schedule/', {date : selectedDate}, { withCredentials: true })
+      .then(response => {
+        if (response.data.status === 'success') {
+          alert('일정이 생성되었습니다');
+          navigate("/result", { state: { result: response.data.result } });
+        } else {
+          alert(`오류: ${response.data.message}`);
+        }
+      })
+      .catch(error => {
+        console.error('일정 생성 중 오류 발생', error);
+        alert('일정 생성 중 오류가 발생하였습니다');
+      });
     }
   return (
     <div className="container">

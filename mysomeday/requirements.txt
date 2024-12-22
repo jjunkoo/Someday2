@@ -24,7 +24,7 @@ numpy==1.21.6
 scipy==1.7.3
 
 # TensorFlow
-tensorflow==2.9.1
+tensorflow==2.18.0
 
 # Transformers 라이브러리
 transformers==4.8.1

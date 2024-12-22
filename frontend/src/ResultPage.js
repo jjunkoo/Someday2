@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./ResultPage.css"
 function ResultPage(){
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rating, setRating] = useState(0); // 별점 상태를 위한 state
     const [selectedOption, setSelectedOption] = useState(null);
     const [feedbackText, setFeedbackText] = useState(''); // 피드백 텍스트 상태
-
+    const loaction = useLocation();
+    const result = loaction.state?.result;
     const [savedRating, setSavedRating] = useState(null); // 저장된 별점
     const [savedFeedback, setSavedFeedback] = useState(''); // 저장된 피드백 텍스트
   const handleFeedbackClick = () => {
@@ -37,10 +39,13 @@ function ResultPage(){
   const goBack = () => {
     window.history.back();
   }
-
+  if (!result) {
+    return <p>결과를 불러올 수 없습니다. 다시 시도해주세요.</p>;
+  }
   return (
     <div className="container">
       <div className="title">일정 자동 생성</div>
+      <div>{JSON.stringify(result, null, 2)}</div>
       <div className="content-row">
         <div className="box1">날짜 시간</div>
         <div className="box1">일정 이름</div>
