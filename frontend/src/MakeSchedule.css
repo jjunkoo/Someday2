@@ -37,7 +37,7 @@
     background-color: #e0e0e0;
     color: #333;
     display: flex;
-    align-items: center;
+    align-self: flex-start;
     justify-content: center;
     font-size: 16px;
     padding: 12px;
@@ -131,4 +131,10 @@
   .make-gap{
     display: flex;
     gap: 10px;
+    margin-top: 20px;
+  }
+  .selectgroup{
+    background-color: #efefef;
+    padding: 15px;
+    border-radius: 8px;
   }

@@ -264,13 +264,8 @@ def refresh_event(request):
             events = events_result.get('items', [])
             request.session['events'] = events
             model_status = ModelStatus.objects.filter(id=1).first()
-
-            if model_status.status in ['trained', 'training']:
-                return JsonResponse({'status': 'success', 'message': '이벤트가 성공적으로 새로고침 되었습니다'})
-            else:
-                # 모델 학습 트리거
-                train_model_task.delay()
-                return JsonResponse({'status': 'success', 'message': '이벤트가 성공적으로 새로고침 되었습니다'})
+                
+            return JsonResponse({'status': 'success', 'message': '이벤트가 성공적으로 새로고침 되었습니다'})
         except Exception as e:
                 return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     
@@ -332,12 +327,21 @@ def check_model_status(request):
     """
     if request.method == 'GET':
         model_status = ModelStatus.objects.filter(id=1).first()
+
         if model_status:
-            model_predict.delay()
-            return JsonResponse({'status': model_status.status}, status=200)
+            if model_status.status == 'not_trained':
+                # 모델 학습 작업 시작
+                train_model_task.delay()
+                return JsonResponse({'status': 'not_trained', 'message': '모델 학습을 시작했습니다.'}, status=200)
+            elif model_status.status == 'training':
+                return JsonResponse({'status': 'training', 'message': '모델 학습이 진행 중입니다.'}, status=200)
+            elif model_status.status == 'trained':
+                return JsonResponse({'status': 'trained', 'message': '모델 학습이 완료되었습니다.'}, status=200)
+            else:
+                return JsonResponse({'status': 'unknown', 'message': '알 수 없는 상태입니다.'}, status=200)
         else:
-            return JsonResponse({'status': 'unknown'}, status=200)
-    
+            return JsonResponse({'status': 'not_found', 'message': '모델 상태를 확인할 수 없습니다.'}, status=404)
+
     return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
 
 @csrf_exempt
@@ -346,10 +350,10 @@ def make_schedule(request):
         try:
             data = json.loads(request.body)
             time = data.get("date")
-
+            selection = data.get("selection", {}).get("group1", [])  # group1에서 필수활동 가져오기
+            excluded_selection = data.get("selection", {}).get("group2", [])  # group2에서 제외활동 가져오기
             # Celery 작업 호출
-            result = model_predict.delay(time)
-
+            result = model_predict.delay(time,selection,excluded_selection)
             try:
                 # 작업 결과 대기
                 predicted_schedule = result.get(timeout=60)  # 최대 60초 대기
@@ -364,3 +368,74 @@ def make_schedule(request):
         except Exception as e:
             print(f"Error while processing request: {e}")
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+@csrf_exempt
+def add_events(request):
+    if request.method == 'POST':
+        try:
+            if 'credentials' not in request.session:
+                return JsonResponse({'status': 'error', 'message': 'User not authenticated'}, status=401)
+
+            data = json.loads(request.body)
+
+            if not isinstance(data, list):
+                return JsonResponse({'status': 'error', 'message': 'Request body must be a list of events'}, status=400)
+
+            creds_info = request.session['credentials']
+            credentials = Credentials(
+                creds_info['token'],
+                refresh_token=creds_info['refresh_token'],
+                token_uri=creds_info['token_uri'],
+                client_id=creds_info['client_id'],
+                client_secret=creds_info['client_secret'],
+                scopes=creds_info['scopes']
+            )
+
+            # Google Calendar API 서비스 객체 생성
+            service = build('calendar', 'v3', credentials=credentials)
+
+            added_events = []
+
+            for event_data in data:
+                title = event_data.get('title')
+                start = event_data.get('start')
+                end = event_data.get('end')
+                description = event_data.get('description')
+
+                if not title or not start or not end:
+                    return JsonResponse({'status': 'error', 'message': 'Missing required fields: title, start, end'}, status=400)
+
+                # 새 이벤트 추가
+                event = {
+                    'summary': title,
+                    'description': description,
+                    'start': {
+                        'dateTime': start,
+                        'timeZone': 'Asia/Seoul',
+                    },
+                    'end': {
+                        'dateTime': end,
+                        'timeZone': 'Asia/Seoul',
+                    }
+                }
+                added_event = service.events().insert(calendarId='primary', body=event).execute()
+
+                # DB에 저장 (필요에 따라 구현)
+                save_events_to_db(added_event)
+                added_events.append(added_event)
+
+            return JsonResponse({'status': 'success', 'message': 'Events added successfully', 'events': added_events})
+
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+@csrf_exempt
+def send_cat(request):
+    if request.method == "GET":
+        category = request.session.get('predicted_schedule')  # 세션에서 'predicted_schedule' 가져오기
+        if category:
+            return JsonResponse({'category': category}, status=200)
+        else:
+            return JsonResponse({'error': 'Category not found'}, status=404)
+    return JsonResponse({'error': 'Invalid HTTP method'}, status=405)

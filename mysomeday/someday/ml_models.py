@@ -63,7 +63,7 @@ def extract_time(text):
         r'\b(\d{1,2}시)\b',                                   # "7시"
         r'\b(\d{1,2}):(\d{2})\b'                              # "14:30"
     ]
-    
+
     times = []
     for pattern in time_patterns:
         matches = re.findall(pattern, text)
@@ -308,7 +308,7 @@ def build_lstm_model(vocab_size, embedding_dim, input_length, num_classes):
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     return model
 
-def train_lstm_model(df, sequence_length=5, embedding_dim=50, batch_size=64, epochs=30, test_size=0.2, random_state=42):
+def train_lstm_model(df, sequence_length=5, embedding_dim=100, batch_size=64, epochs=50, test_size=0.2, random_state=42):
 
     # 데이터 준비
     padded_sequences, encoded_labels, tokenizer, encoder = prepare_data(df, sequence_length)
@@ -351,7 +351,7 @@ def load_lstm_model(path):
         encoder = joblib.load(f)
     return model, tokenizer, encoder
 
-def predict_lstm(path,sequence,time_sequence):
+def predict_lstm(path,sequence,time_sequence, excluded_labels):
     model, tokenizer, encoder = load_lstm_model(path)
     
     # 시퀀스 결합 (시간 + 활동)
@@ -380,17 +380,20 @@ def predict_lstm(path,sequence,time_sequence):
     
     # 최종 레이블 선택
     sorted_classes = sorted(class_probabilities.items(), key=lambda x: x[1], reverse=True)
+    highest_label, highest_probability = sorted_classes[0]
     for label, prob in sorted_classes:
-        if label != "기타":  # 특정 레이블 제외 조건
+        if label not in excluded_labels and label != "기타":  # 특정 레이블 및 "기타" 제외 조건
             final_label = label
             final_probability = prob
             break
     else:
         final_label = None
         final_probability = None
+
     
     return {
-        "predicted_label": label,
+        "first_label" : highest_label,
+        "predicted_label": final_label,
         "probabilities": class_probabilities,
-        "selected_probability": prob
+        "selected_probability": final_probability
     }

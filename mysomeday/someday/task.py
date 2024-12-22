@@ -12,12 +12,13 @@ logger = logging.getLogger('myapp')
 
 # 활동 키워드 사전 정의
 activity_keywords = {
-    "식사" : ["아침","점심","저녁","식사"],
-    "운동": ["운동","헬스", "요가", "필라테스", "홈트"],
-    "공부": ["공부","독서", "강의", "언어", "자격증", "회의","시험","기말","중간"],
-    "스포츠": ["스포츠","축구", "농구", "배드민턴", "테니스", "등산", "자전거", "클라이밍", "수영", "서핑", "스쿠버","볼링","탁구","야구장","축구장","야구","배구"],
-    "관람": ["관람","연극", "뮤지컬", "콘서트", "전시회", "미술관", "박물관", "영화관", "드라마","영화"],
-    "공원": ["공원","산책", "피크닉", "캠핑", "숲"],
+    "저녁식사" : ["저녁","저녁식사","야식"],
+    "점심식사" : ["점심","식사","브런치"],
+    "운동": ["운동", "헬스", "요가", "필라테스", "홈트", "러닝", "마라톤", "크로스핏", "태권도", "검도", "주짓수"],
+    "공부": ["공부", "독서", "강의", "언어", "자격증", "코딩"],
+    "스포츠": ["스포츠", "축구", "농구", "배드민턴", "테니스", "등산", "자전거", "클라이밍", "수영", "서핑", "스쿠버","볼링","탁구","야구장","축구장","야구","배구"],
+    "관람": ["관람", "연극", "뮤지컬", "콘서트", "전시회", "미술관", "박물관", "영화관", "드라마", "영화", "오페라", "발레"],
+    "공원": ["공원", "산책", "피크닉", "캠핑", "숲", "해변", "호수"],
     "실내활동" : ["실내활동","PC방", "노래방", "보드게임", "VR", "방탈출", "만화카페", "당구", "포켓볼", "탁구", "플스방"],
     "기타": []
 }
@@ -56,7 +57,7 @@ def train_model_task():
         #events = CalendarEvent.objects.all().order_by('start')
         #df = pd.DataFrame(list(events.values()))
         
-        df = pd.read_csv("dataset2.csv")
+        df = pd.read_csv("dataset_with_patterns4.csv")
         df["start"] = pd.to_datetime(df["start"])
         df["end"] = pd.to_datetime(df["end"])
 
@@ -85,19 +86,21 @@ def train_model_task():
         return f'모델 학습 중 오류 발생: {str(e)}'
 
 @shared_task    
-def model_predict(time):
+def model_predict(time,selected_labels,excluded_labels):
     time_seq = []
     all_results = []
     target = pd.to_datetime(time)
     target_weekday = target.weekday()
-    df = pd.read_csv("dataset2.csv")
+    df = pd.read_csv("dataset_with_patterns4.csv")
     df["start"] = pd.to_datetime(df["start"])  # start를 datetime으로 변환
     df["end"] = pd.to_datetime(df["end"])      # end를 datetime으로 변환
-
-    if(target_weekday == 0):
-        filtered_df = df[df["start"].dt.weekday == 6]
-    else:
-        filtered_df = df[df["start"].dt.weekday == target_weekday-1]
+    print(selected_labels)
+    print(excluded_labels)
+    # if(target_weekday == 0):
+    #     filtered_df = df[df["start"].dt.weekday == 6]
+    # else:
+    #     filtered_df = df[df["start"].dt.weekday == target_weekday-1] 
+    filtered_df = df[df["start"].dt.weekday == target_weekday]
     recent_events = filtered_df.sort_values(by='start', ascending=False).head(5)
     events = split_into_time_blocks(recent_events)
     seq = events["summary"].head(5).to_numpy()
@@ -108,12 +111,16 @@ def model_predict(time):
     time_seq = sorted(time_seq, reverse=True)
     time_sequence = time_seq[:5]
     time_sequence = np.flip(time_sequence)
-    result = predict_lstm(MODEL_SAVE_PATH,seq,time_sequence)
+    result = predict_lstm(MODEL_SAVE_PATH,seq,time_sequence,excluded_labels)
     all_results.append(result["predicted_label"])
     for i in range(15):
-        seq = np.concatenate((seq[1:],[result["predicted_label"]]))
-        time_sequence = np.concatenate((time_sequence[1:],[time_sequence[4]+1]))
-        result = predict_lstm(MODEL_SAVE_PATH,seq,time_sequence)
+        seq = np.concatenate((seq[1:], [result["first_label"]]))
+        if time_sequence[4] == 111:
+            time_sequence = np.concatenate((time_sequence[1:], [2]))
+        else:
+            time_sequence = np.concatenate((time_sequence[1:], [time_sequence[4] + 1]))
+        result = predict_lstm(MODEL_SAVE_PATH, seq, time_sequence, excluded_labels)
         all_results.append(result["predicted_label"])
     return all_results
+
     

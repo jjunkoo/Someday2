@@ -5,11 +5,7 @@ import { redirect, useNavigate } from "react-router-dom";
 import "./Homepage.css"
 
 function Homepage(){
-    const [modelStatus, setModelStatus] = useState('not_trained'); 
     const navigate = useNavigate();
-    const goList = () => {
-        navigate("/list");
-    }
     const goMake = () => {
         navigate("/make");
     }
@@ -29,29 +25,30 @@ function Homepage(){
         });
     }
     const checkModelStatus = async () => {
-      try {
+        try {
           const response = await fetch('/api/check_model_status/', {
-              method: 'GET',
+            method: 'GET',
           });
-
+      
           const data = await response.json();
-
+      
           if (response.ok) {
-              setModelStatus(data.status);
-              if (data.status === 'trained') {
-                  alert('모델 학습이 완료되었습니다.');
-              } else if (data.status === 'training') {
-                  alert('모델 학습이 진행 중입니다.');
-              } else {
-                  alert('모델 학습에 실패했습니다.');
-              }
+            if (data.status === 'trained') {
+              alert(data.message); // "모델 학습이 완료되었습니다."
+            } else if (data.status === 'training') {
+              alert(data.message); // "모델 학습이 진행 중입니다."
+            } else if (data.status === 'not_trained') {
+              alert(data.message); // "모델 학습을 시작했습니다."
+            } else {
+              alert('알 수 없는 상태입니다.');
+            }
           } else {
-              alert('모델 상태를 확인할 수 없습니다.');
+            alert(data.message || '모델 상태를 확인할 수 없습니다.');
           }
-      } catch (error) {
+        } catch (error) {
           alert('서버 오류가 발생했습니다.');
-      }
-  };
+        }
+      };
       return (
         <div className="container">
             <div className="title1">썸데이</div>
@@ -61,8 +58,7 @@ function Homepage(){
                 <div className="button-group">
                 <button className="make-button" onClick={goRefresh}>새로고침</button>
                 <button className="make-button" onClick={goMake}>일정 자동 생성</button>
-                <button className="list-button" onClick={goList}>맞춤 장소 리스트</button>
-                <button className="make-button" onClick={checkModelStatus}>모델 학습 확인</button>
+                <button className="make-button" onClick={checkModelStatus}>모델 학습</button>
                 </div>
             
         </div>
