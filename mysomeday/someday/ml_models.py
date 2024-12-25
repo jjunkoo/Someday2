@@ -31,25 +31,12 @@ logger = logging.getLogger('myproject')
 
 MODEL_SAVE_PATH = './saved_lstm_model'
 
-# 계절별 정의 함수
-def get_season(month):
-    seasons = {'Spring': [3, 4, 5], 'Summer': [6, 7, 8], 'Autumn': [9, 10, 11], 'Winter': [12, 1, 2]}
-    for season, months in seasons.items():
-        if month in months:
-            return season
-    return 'Unknown'
-
 # 활동 추출 함수
 def extract_activity(text, activity_keywords):
     for activity, keywords in activity_keywords.items():
         if any(keyword in text for keyword in keywords):
             return activity
     return '기타'
-
-# 장소 추출 함수
-def extract_location(text, location_keywords):
-    matched_locations = [location for location in location_keywords if location in text]
-    return ', '.join(matched_locations) if matched_locations else 'Unknown'
 
 # 시간 추출 함수
 def extract_time(text):
@@ -164,7 +151,7 @@ def get_time_block(dt):
     else:
         return -1  # 유효하지 않은 시간대
 
-# 시퀀스 분할 함수
+# 1시간 단위 분할 함수
 def split_into_time_blocks(df):
     split_events = []
     for _, row in df.iterrows():
@@ -182,8 +169,8 @@ def split_into_time_blocks(df):
     split_df = pd.DataFrame(split_events)
     return split_df
 
-    # 모델 학습 및 저장 함수
-def preprocess_data(df, activity_keywords, location_keywords):
+#데이터 전처리 함수
+def preprocess_data(df, activity_keywords):
     logger.info("preprocess_data 함수 시작.")
     
     # combined_text_summary와 combined_text_description 두 개의 컬럼 생성
@@ -191,9 +178,6 @@ def preprocess_data(df, activity_keywords, location_keywords):
     df['combined_text_summary'] = df['summary'].fillna('')
     df['combined_text_description'] = df['description'].fillna('')
     logger.debug("combined_text 생성 완료.")
-    
-    # NER Pipeline 초기화
-    logger.debug("NER Pipeline 초기화 중.")
     
     # 활동 추출
     logger.debug("extract_activity 호출 전.")
@@ -206,25 +190,14 @@ def preprocess_data(df, activity_keywords, location_keywords):
     )
     logger.debug("extract_activity 호출 완료.")
     #logger.debug("DataFrame 'activity' 컬럼 내용:\n%s", df['activity'].to_string())
-    
-    # 장소 추출
-    logger.debug("extract_location 호출 전.")
-    df['location'] = df['combined_text_summary'].apply(lambda x: extract_location(x, location_keywords))
-    
-    # summary에서 장소가 'Unknown'이면 description에서 추출
-    df['location'] = df.apply(
-        lambda row: row['location'] if row['location'] != 'Unknown' else extract_location(row['combined_text_description'], location_keywords),
-        axis=1
-    )
-    logger.debug("extract_location 호출 완료.")
+
     # 시간 추출
-    # start와 end 컬럼 사용 (간소화된 부분)
+    # start와 end 컬럼 사용
     logger.debug("start와 end 컬럼을 바로 사용합니다.")
     df['parsed_start'] = df['start']
     df['parsed_end'] = df['end']
     logger.debug("start와 end 데이터를 parsed_start와 parsed_end로 복사 완료.")
     
-    # start와 end를 explode할 필요 없음
     logger.debug("start와 end 컬럼 확인:\n%s", df[['start', 'end']].head().to_string())
     
     # start와 end 컬럼 업데이트 (이미 동일한 값이므로 그대로 둠)
@@ -232,20 +205,13 @@ def preprocess_data(df, activity_keywords, location_keywords):
     df['end'] = pd.to_datetime(df['end'], errors='coerce')
     logger.debug("start와 end 컬럼 업데이트 완료.")
     
-    # 2시간 단위로 분할
+    # 1시간 단위로 분할
     logger.debug("split_into_time_blocks 호출 전.")
     split_df = split_into_time_blocks(df)
     if split_df is None:
         logger.error("split_into_time_blocks 함수가 None을 반환했습니다.")
         raise ValueError("split_into_time_blocks 함수가 None을 반환했습니다.")
-    #logger.debug(f"split_into_time_blocks 완료. 결과 행 수: {len(split_df)}")
-    #logger.debug(f"결과 DataFrame:\n{split_df.to_string()}")
-    
-    # 계절 정보 추가
-    logger.debug("get_season 호출 전.")
-    split_df['season'] = split_df['start'].dt.month.apply(get_season)
-    logger.debug("계절 정보 추가 완료.")
-    
+
     # 시간대 라벨링 (0~83)
     logger.debug("get_time_block 호출 전.")
     split_df['time_block'] = split_df['start'].apply(get_time_block)
@@ -253,6 +219,7 @@ def preprocess_data(df, activity_keywords, location_keywords):
     
     return split_df
 
+#시퀀스 생성 함수
 def preprocess_for_lstm(df, sequence_length):
     sequences = []
     labels = []
@@ -308,6 +275,7 @@ def build_lstm_model(vocab_size, embedding_dim, input_length, num_classes):
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     return model
 
+#모델 학습 함수
 def train_lstm_model(df, sequence_length=5, embedding_dim=100, batch_size=64, epochs=50, test_size=0.2, random_state=42):
 
     # 데이터 준비
@@ -351,6 +319,7 @@ def load_lstm_model(path):
         encoder = joblib.load(f)
     return model, tokenizer, encoder
 
+#학습된 모델을 통한 예측함수
 def predict_lstm(path,sequence,time_sequence, excluded_labels):
     model, tokenizer, encoder = load_lstm_model(path)
     
