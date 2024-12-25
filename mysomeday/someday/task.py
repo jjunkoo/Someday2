@@ -23,27 +23,6 @@ activity_keywords = {
     "기타": []
 }
 
-location_keywords = ["강남", "역삼", "삼성동", "신사",
-    "압구정", "가로수길", "청담",
-    "잠실", "석촌호수",
-    "홍대", "연남동", "합정", "망원", "상수",
-    "종로", "인사동", "삼청동", "서촌", "북촌",
-    "을지로", "을지로3가",
-    "혜화", "대학로",
-    "동대문", "동대문디자인플라자(DDP)",
-    "건대", "커먼그라운드",
-    "왕십리", "한양대",
-    "성수", "서울숲",
-    "신촌", "연세대학교", "이대",
-    "마포", "공덕",
-    "상암", "DMC", "월드컵공원",
-    "양재", "양재 꽃시장",
-    "서초", "교대역", "예술의전당",
-    "사당", "방배동",
-    "노원", "불암산",
-    "수유", "북한산",
-    "미아", "미아사거리"]
-
 @shared_task
 def train_model_task():
     """
@@ -54,12 +33,8 @@ def train_model_task():
         ModelStatus.objects.update_or_create(id=1, defaults={'status': 'training'})
         
         # MongoDB에서 데이터 로드 (Django ORM 사용)
-        #events = CalendarEvent.objects.all().order_by('start')
-        #df = pd.DataFrame(list(events.values()))
-        
-        df = pd.read_csv("dataset_with_patterns4.csv")
-        df["start"] = pd.to_datetime(df["start"])
-        df["end"] = pd.to_datetime(df["end"])
+        events = CalendarEvent.objects.all().order_by('start')
+        df = pd.DataFrame(list(events.values()))
 
         if df.empty:
             # 모델 상태를 'not_trained'으로 재설정
@@ -67,7 +42,7 @@ def train_model_task():
             return '데이터가 없습니다.'
         
         logger.info("데이터 전처리 시작.")
-        sequence_df = preprocess_data(df, activity_keywords,location_keywords)
+        sequence_df = preprocess_data(df, activity_keywords)
         logger.info("데이터 전처리 완료.")
         model, tokenizer, encoder = train_lstm_model(sequence_df)
         # 모델 학습 및 저장
@@ -86,21 +61,20 @@ def train_model_task():
         return f'모델 학습 중 오류 발생: {str(e)}'
 
 @shared_task    
-def model_predict(time,selected_labels,excluded_labels):
+def model_predict(time,excluded_labels):
     time_seq = []
     all_results = []
     target = pd.to_datetime(time)
     target_weekday = target.weekday()
-    df = pd.read_csv("dataset_with_patterns4.csv")
+    events = CalendarEvent.objects.all().order_by('start')
+    df = pd.DataFrame(list(events.values()))
     df["start"] = pd.to_datetime(df["start"])  # start를 datetime으로 변환
     df["end"] = pd.to_datetime(df["end"])      # end를 datetime으로 변환
-    print(selected_labels)
     print(excluded_labels)
-    # if(target_weekday == 0):
-    #     filtered_df = df[df["start"].dt.weekday == 6]
-    # else:
-    #     filtered_df = df[df["start"].dt.weekday == target_weekday-1] 
-    filtered_df = df[df["start"].dt.weekday == target_weekday]
+    if(target_weekday == 0):
+        filtered_df = df[df["start"].dt.weekday == 6]
+    else:
+        filtered_df = df[df["start"].dt.weekday == target_weekday-1] 
     recent_events = filtered_df.sort_values(by='start', ascending=False).head(5)
     events = split_into_time_blocks(recent_events)
     seq = events["summary"].head(5).to_numpy()

@@ -27,11 +27,6 @@ def google_calendar_init_view(request):
         scopes=SCOPES,
         redirect_uri=settings.GOOGLE_REDIRECT_URI  # 리디렉션 URI
     ) 
-    # flow = Flow.from_client_config(
-    #     GOOGLE_CLIENT_CONFIG,
-    #     scopes=SCOPES,  # 리디렉션 URI
-    # )
-    # flow.redirect_uri = settings.GOOGLE_REDIRECT_URI
     
     # 구글 OAuth 인증 URL 생성
     auth_url, state = flow.authorization_url(access_type='offline', include_granted_scopes='true')
@@ -48,11 +43,6 @@ def google_calendar_redirect_view(request):
         scopes=SCOPES,
         redirect_uri=settings.GOOGLE_REDIRECT_URI  # 리디렉션 URI
     ) 
-    # flow = Flow.from_client_config(
-    #     GOOGLE_CLIENT_CONFIG,
-    #     scopes=SCOPES,  # 리디렉션 URI
-    # )
-    # flow.redirect_uri = settings.GOOGLE_REDIRECT_URI
     flow.fetch_token(authorization_response=request.build_absolute_uri())
     
     credentials = flow.credentials
@@ -77,14 +67,6 @@ def google_calendar_redirect_view(request):
     events = events_result.get('items', [])
     save_events_to_db(events)
     request.session['events'] = events
-    # model_status = ModelStatus.objects.filter(id=1).first()
-
-    # if model_status.status in ['trained', 'training']:
-    #     return HttpResponseRedirect('http://localhost:3000/home')
-    # else:
-    #     # 모델 학습 트리거
-    #     train_model_task.delay()
-    #     return HttpResponseRedirect('http://localhost:3000/home')
     return HttpResponseRedirect('http://localhost:3000/home')
 
 def get_events(request):
@@ -263,7 +245,6 @@ def refresh_event(request):
             fields='items(id,summary,start,end,description)').execute()
             events = events_result.get('items', [])
             request.session['events'] = events
-            model_status = ModelStatus.objects.filter(id=1).first()
                 
             return JsonResponse({'status': 'success', 'message': '이벤트가 성공적으로 새로고침 되었습니다'})
         except Exception as e:
@@ -350,10 +331,9 @@ def make_schedule(request):
         try:
             data = json.loads(request.body)
             time = data.get("date")
-            selection = data.get("selection", {}).get("group1", [])  # group1에서 필수활동 가져오기
             excluded_selection = data.get("selection", {}).get("group2", [])  # group2에서 제외활동 가져오기
             # Celery 작업 호출
-            result = model_predict.delay(time,selection,excluded_selection)
+            result = model_predict.delay(time,excluded_selection)
             try:
                 # 작업 결과 대기
                 predicted_schedule = result.get(timeout=60)  # 최대 60초 대기

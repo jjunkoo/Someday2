@@ -75463,3 +75463,324 @@ def group(self, tasks, result, group_id, partial_args, add_to_parent=0):
 [23/Dec/2024 08:49:24] INFO [googleapiclient.discovery_cache:49] file_cache is only supported with oauth2client<4.0.0
 [23/Dec/2024 08:49:24] DEBUG [googleapiclient.discovery:1258] URL being requested: POST https://www.googleapis.com/calendar/v3/calendars/primary/events?alt=json
 [23/Dec/2024 08:49:25] DEBUG [googleapiclient.discovery:1258] URL being requested: POST https://www.googleapis.com/calendar/v3/calendars/primary/events?alt=json
+[24/Dec/2024 17:30:09] DEBUG [tensorflow:34] Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[24/Dec/2024 17:30:09] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 17:30:09] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 17:30:09] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 17:30:09] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 17:30:16] INFO [googleapiclient.discovery_cache:49] file_cache is only supported with oauth2client<4.0.0
+[24/Dec/2024 17:30:16] DEBUG [googleapiclient.discovery:1258] URL being requested: GET https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=2022-01-01T00%3A00%3A00Z&timeMax=2024-12-31T23%3A59%3A59Z&maxResults=2500&singleEvents=true&orderBy=startTime&fields=items%28id%2Csummary%2Cstart%2Cend%2Cdescription%29&alt=json
+[24/Dec/2024 17:30:17] INFO [google_auth_httplib2:238] Refreshing credentials due to a 401 response. Attempt 1/2.
+[24/Dec/2024 17:30:20] DEBUG [requests_oauthlib.oauth2_session:124] Generated new state Xz18JLJGIChJyTK8h5YvwcIgxTC6UP.
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:338] Encoding `client_id` "4458920489-1ttbeecsd8jlqi7aaiendchu0pnphkt9.apps.googleusercontent.com" with `client_secret` as Basic auth credentials.
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:563] Requesting url https://oauth2.googleapis.com/token using method POST.
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:564] Supplying headers {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'} and data {'grant_type': 'authorization_code', 'code': '4/0AanRRruAL_27b7iU9NuBHMKN-SKYasOLbrXWQahqTgLKzcYd5uHEKcvQnmRbCBq1EAAk-w', 'redirect_uri': 'http://localhost:8000/api/calendar/redirect/'}
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:565] Passing through key word arguments {'timeout': None, 'auth': <requests.auth.HTTPBasicAuth object at 0x000002430D2A7210>, 'verify': None, 'proxies': None, 'cert': None}.
+[24/Dec/2024 17:30:21] DEBUG [urllib3.connectionpool:1051] Starting new HTTPS connection (1): oauth2.googleapis.com:443
+[24/Dec/2024 17:30:21] DEBUG [urllib3.connectionpool:546] https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:393] Request to fetch token completed with status 200.
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:394] Request url was https://oauth2.googleapis.com/token
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:395] Request headers were {'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '184', 'Authorization': 'Basic NDQ1ODkyMDQ4OS0xdHRiZWVjc2Q4amxxaTdhYWllbmRjaHUwcG5waGt0OS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbTpHT0NTUFgtVlY4TnVTSExMQXVwc0FuX3IxdXpaa3g5Z2lPNw=='}
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:396] Request body was grant_type=authorization_code&code=4%2F0AanRRruAL_27b7iU9NuBHMKN-SKYasOLbrXWQahqTgLKzcYd5uHEKcvQnmRbCBq1EAAk-w&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fcalendar%2Fredirect%2F
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:397] Response headers were {'Pragma': 'no-cache', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Expires': 'Mon, 01 Jan 1990 00:00:00 GMT', 'Date': 'Tue, 24 Dec 2024 08:30:21 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Vary': 'Origin, X-Origin, Referer', 'Content-Encoding': 'gzip', 'Server': 'scaffolding on HTTPServer2', 'X-XSS-Protection': '0', 'X-Frame-Options': 'SAMEORIGIN', 'X-Content-Type-Options': 'nosniff', 'Alt-Svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000', 'Transfer-Encoding': 'chunked'} and content {
+  "access_token": "ya29.a0ARW5m77CXmyPQObHz8LUICYeNx5f0CXqdQm_uJfYIlpl5EanBLoiJa5XMblKtJ7Zc9S8m1ZnGcctBcXqJsk6lK0kdbdIimnFwZ3nX8rJ3Ca0M5U0cH1Dy1iFJ8WQJcVce2E6SS6n0Z0EKBgZ7JXnMdZpeRamrtNSbwFPaCgYKATkSARESFQHGX2Mi-Yrrv0V3y6eg2LFC0OlADQ0171",
+  "expires_in": 3599,
+  "scope": "https://www.googleapis.com/auth/calendar",
+  "token_type": "Bearer"
+}.
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:398] Invoking 0 token response hooks.
+[24/Dec/2024 17:30:21] DEBUG [requests_oauthlib.oauth2_session:408] Obtained token {'access_token': 'ya29.a0ARW5m77CXmyPQObHz8LUICYeNx5f0CXqdQm_uJfYIlpl5EanBLoiJa5XMblKtJ7Zc9S8m1ZnGcctBcXqJsk6lK0kdbdIimnFwZ3nX8rJ3Ca0M5U0cH1Dy1iFJ8WQJcVce2E6SS6n0Z0EKBgZ7JXnMdZpeRamrtNSbwFPaCgYKATkSARESFQHGX2Mi-Yrrv0V3y6eg2LFC0OlADQ0171', 'expires_in': 3599, 'scope': ['https://www.googleapis.com/auth/calendar'], 'token_type': 'Bearer', 'expires_at': 1735032620.5576627}.
+[24/Dec/2024 17:30:21] INFO [googleapiclient.discovery_cache:49] file_cache is only supported with oauth2client<4.0.0
+[24/Dec/2024 17:30:21] DEBUG [googleapiclient.discovery:1258] URL being requested: GET https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=2022-01-01T00%3A00%3A00Z&timeMax=2024-12-31T23%3A59%3A59Z&maxResults=2500&singleEvents=true&orderBy=startTime&fields=items%28id%2Csummary%2Cstart%2Cend%2Cdescription%29&alt=json
+[24/Dec/2024 17:30:54] DEBUG [tensorflow:34] Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[24/Dec/2024 17:30:54] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 17:30:54] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 17:30:54] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 17:30:54] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def group(self, tasks, result, group_id, partial_args, add_to_parent=0):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def model_predict(time, excluded_labels):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def xmap(task, it):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def train_model_task():
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def backend_cleanup():
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def chain(*args, **kwargs):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def xstarmap(task, it):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def accumulate(self, *args, **kwargs):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def chord(self, header, body, partial_args=0, interval=1, countdown=2, max_retries=3, eager=4, **kwargs):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def chunks(task, it, n):
+    return 1
+
+[24/Dec/2024 17:30:55] DEBUG [celery.utils.functional:335] 
+def unlock_chord(self, group_id, callback, interval=0, max_retries=1, result=2, Result=3, GroupResult=4, result_from_tuple=5, **kwargs):
+    return 1
+
+[24/Dec/2024 17:31:07] INFO [googleapiclient.discovery_cache:49] file_cache is only supported with oauth2client<4.0.0
+[24/Dec/2024 17:31:07] DEBUG [googleapiclient.discovery:1258] URL being requested: DELETE https://www.googleapis.com/calendar/v3/calendars/primary/events/70r3gor571h62b9k75j30b9k64s38bb2clhm6b9m6srjiphk60oj6ohhc8?
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def xmap(task, it):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def backend_cleanup():
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def model_predict(time, excluded_labels):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def chain(*args, **kwargs):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def xstarmap(task, it):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def accumulate(self, *args, **kwargs):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def chord(self, header, body, partial_args=0, interval=1, countdown=2, max_retries=3, eager=4, **kwargs):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def chunks(task, it, n):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def unlock_chord(self, group_id, callback, interval=0, max_retries=1, result=2, Result=3, GroupResult=4, result_from_tuple=5, **kwargs):
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def train_model_task():
+    return 1
+
+[24/Dec/2024 17:32:34] DEBUG [celery.utils.functional:335] 
+def group(self, tasks, result, group_id, partial_args, add_to_parent=0):
+    return 1
+
+[24/Dec/2024 18:10:31] DEBUG [tensorflow:34] Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[24/Dec/2024 18:10:31] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:10:31] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:10:31] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:10:31] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:10:46] DEBUG [tensorflow:34] Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[24/Dec/2024 18:10:46] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:10:46] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:10:46] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:10:46] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:10:54] DEBUG [tensorflow:34] Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[24/Dec/2024 18:10:55] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:10:55] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:10:55] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:10:55] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def group(self, tasks, result, group_id, partial_args, add_to_parent=0):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def xmap(task, it):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def train_model_task():
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def backend_cleanup():
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def chain(*args, **kwargs):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def model_predict(time, excluded_labels):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def xstarmap(task, it):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def accumulate(self, *args, **kwargs):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def chord(self, header, body, partial_args=0, interval=1, countdown=2, max_retries=3, eager=4, **kwargs):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def chunks(task, it, n):
+    return 1
+
+[24/Dec/2024 18:10:55] DEBUG [celery.utils.functional:335] 
+def unlock_chord(self, group_id, callback, interval=0, max_retries=1, result=2, Result=3, GroupResult=4, result_from_tuple=5, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:09] DEBUG [requests_oauthlib.oauth2_session:124] Generated new state 0MOeYUHGUx6PMb3Mme9CuvClOSOugO.
+[24/Dec/2024 18:11:09] DEBUG [requests_oauthlib.oauth2_session:338] Encoding `client_id` "4458920489-1ttbeecsd8jlqi7aaiendchu0pnphkt9.apps.googleusercontent.com" with `client_secret` as Basic auth credentials.
+[24/Dec/2024 18:11:09] DEBUG [requests_oauthlib.oauth2_session:563] Requesting url https://oauth2.googleapis.com/token using method POST.
+[24/Dec/2024 18:11:09] DEBUG [requests_oauthlib.oauth2_session:564] Supplying headers {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'} and data {'grant_type': 'authorization_code', 'code': '4/0AanRRrsbvL0yRLPyF3xVZXhUuKH2GRT6uFYaZLC_h93L4l0FtcWIjMEbSVtvyvFwpw-wnA', 'redirect_uri': 'http://localhost:8000/api/calendar/redirect/'}
+[24/Dec/2024 18:11:09] DEBUG [requests_oauthlib.oauth2_session:565] Passing through key word arguments {'timeout': None, 'auth': <requests.auth.HTTPBasicAuth object at 0x000001C336F4AB50>, 'verify': None, 'proxies': None, 'cert': None}.
+[24/Dec/2024 18:11:09] DEBUG [urllib3.connectionpool:1051] Starting new HTTPS connection (1): oauth2.googleapis.com:443
+[24/Dec/2024 18:11:10] DEBUG [urllib3.connectionpool:546] https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+[24/Dec/2024 18:11:10] DEBUG [requests_oauthlib.oauth2_session:393] Request to fetch token completed with status 200.
+[24/Dec/2024 18:11:10] DEBUG [requests_oauthlib.oauth2_session:394] Request url was https://oauth2.googleapis.com/token
+[24/Dec/2024 18:11:10] DEBUG [requests_oauthlib.oauth2_session:395] Request headers were {'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '184', 'Authorization': 'Basic NDQ1ODkyMDQ4OS0xdHRiZWVjc2Q4amxxaTdhYWllbmRjaHUwcG5waGt0OS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbTpHT0NTUFgtVlY4TnVTSExMQXVwc0FuX3IxdXpaa3g5Z2lPNw=='}
+[24/Dec/2024 18:11:10] DEBUG [requests_oauthlib.oauth2_session:396] Request body was grant_type=authorization_code&code=4%2F0AanRRrsbvL0yRLPyF3xVZXhUuKH2GRT6uFYaZLC_h93L4l0FtcWIjMEbSVtvyvFwpw-wnA&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fcalendar%2Fredirect%2F
+[24/Dec/2024 18:11:10] DEBUG [requests_oauthlib.oauth2_session:397] Response headers were {'Expires': 'Mon, 01 Jan 1990 00:00:00 GMT', 'Pragma': 'no-cache', 'Date': 'Tue, 24 Dec 2024 09:11:10 GMT', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Content-Type': 'application/json; charset=utf-8', 'Vary': 'Origin, X-Origin, Referer', 'Content-Encoding': 'gzip', 'Server': 'scaffolding on HTTPServer2', 'X-XSS-Protection': '0', 'X-Frame-Options': 'SAMEORIGIN', 'X-Content-Type-Options': 'nosniff', 'Alt-Svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000', 'Transfer-Encoding': 'chunked'} and content {
+  "access_token": "ya29.a0ARW5m745HfdKWD1CxJdV0Kr5BtSamrwxDMjj4KIlQedoAsGAaTj7JQziqi2C1Nz77FcKRAC70hG2DzQLGPWx19zTplwe0fqQEzyD9-hLgw7KvNZNG4xkAB2WWZMQtOb5LyWX8jAJDw3g7tsBk7nKfeaNe3-ekVrP_sWfaCgYKAVQSARESFQHGX2Miz8VnbipQ9coFP5JiXkBgjQ0171",
+  "expires_in": 3599,
+  "scope": "https://www.googleapis.com/auth/calendar",
+  "token_type": "Bearer"
+}.
+[24/Dec/2024 18:11:10] DEBUG [requests_oauthlib.oauth2_session:398] Invoking 0 token response hooks.
+[24/Dec/2024 18:11:10] DEBUG [requests_oauthlib.oauth2_session:408] Obtained token {'access_token': 'ya29.a0ARW5m745HfdKWD1CxJdV0Kr5BtSamrwxDMjj4KIlQedoAsGAaTj7JQziqi2C1Nz77FcKRAC70hG2DzQLGPWx19zTplwe0fqQEzyD9-hLgw7KvNZNG4xkAB2WWZMQtOb5LyWX8jAJDw3g7tsBk7nKfeaNe3-ekVrP_sWfaCgYKAVQSARESFQHGX2Miz8VnbipQ9coFP5JiXkBgjQ0171', 'expires_in': 3599, 'scope': ['https://www.googleapis.com/auth/calendar'], 'token_type': 'Bearer', 'expires_at': 1735035069.1022532}.
+[24/Dec/2024 18:11:10] INFO [googleapiclient.discovery_cache:49] file_cache is only supported with oauth2client<4.0.0
+[24/Dec/2024 18:11:10] DEBUG [googleapiclient.discovery:1258] URL being requested: GET https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=2022-01-01T00%3A00%3A00Z&timeMax=2024-12-31T23%3A59%3A59Z&maxResults=2500&singleEvents=true&orderBy=startTime&fields=items%28id%2Csummary%2Cstart%2Cend%2Cdescription%29&alt=json
+[24/Dec/2024 18:11:36] DEBUG [tensorflow:34] Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[24/Dec/2024 18:11:37] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:11:37] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:11:37] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:11:37] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def xmap(task, it):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def backend_cleanup():
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def model_predict(time, excluded_labels):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def chain(*args, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def xstarmap(task, it):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def accumulate(self, *args, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def chord(self, header, body, partial_args=0, interval=1, countdown=2, max_retries=3, eager=4, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def chunks(task, it, n):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def unlock_chord(self, group_id, callback, interval=0, max_retries=1, result=2, Result=3, GroupResult=4, result_from_tuple=5, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def train_model_task():
+    return 1
+
+[24/Dec/2024 18:11:44] DEBUG [celery.utils.functional:335] 
+def group(self, tasks, result, group_id, partial_args, add_to_parent=0):
+    return 1
+
+[24/Dec/2024 18:11:55] DEBUG [tensorflow:34] Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[24/Dec/2024 18:11:55] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:11:55] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:11:55] DEBUG [h5py._conv:47] Creating converter from 7 to 5
+[24/Dec/2024 18:11:55] DEBUG [h5py._conv:47] Creating converter from 5 to 7
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def group(self, tasks, result, group_id, partial_args, add_to_parent=0):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def xmap(task, it):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def backend_cleanup():
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def chain(*args, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def xstarmap(task, it):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def accumulate(self, *args, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def train_model_task():
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def chord(self, header, body, partial_args=0, interval=1, countdown=2, max_retries=3, eager=4, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def chunks(task, it, n):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def model_predict(time, excluded_labels):
+    return 1
+
+[24/Dec/2024 18:11:56] DEBUG [celery.utils.functional:335] 
+def unlock_chord(self, group_id, callback, interval=0, max_retries=1, result=2, Result=3, GroupResult=4, result_from_tuple=5, **kwargs):
+    return 1
+
+[24/Dec/2024 18:11:59] INFO [myproject:174] preprocess_data 함수 시작.
+[24/Dec/2024 18:11:59] DEBUG [myproject:177] combined_text 생성 중.
+[24/Dec/2024 18:11:59] DEBUG [myproject:180] combined_text 생성 완료.
+[24/Dec/2024 18:11:59] DEBUG [myproject:183] NER Pipeline 초기화 중.
+[24/Dec/2024 18:11:59] DEBUG [myproject:186] extract_activity 호출 전.
+[24/Dec/2024 18:11:59] DEBUG [myproject:194] extract_activity 호출 완료.
+[24/Dec/2024 18:11:59] DEBUG [myproject:199] start와 end 컬럼을 바로 사용합니다.
+[24/Dec/2024 18:11:59] DEBUG [myproject:202] start와 end 데이터를 parsed_start와 parsed_end로 복사 완료.
+[24/Dec/2024 18:11:59] DEBUG [myproject:205] start와 end 컬럼 확인:
+                      start                       end
+0 2022-01-02 03:00:00+00:00 2022-01-02 04:00:00+00:00
+1 2022-01-04 23:00:00+00:00 2022-01-05 00:00:00+00:00
+2 2022-01-15 23:00:00+00:00 2022-01-16 00:00:00+00:00
+3 2022-01-22 23:00:00+00:00 2022-01-23 00:00:00+00:00
+4 2022-01-30 06:00:00+00:00 2022-01-30 07:00:00+00:00
+[24/Dec/2024 18:11:59] DEBUG [myproject:210] start와 end 컬럼 업데이트 완료.
+[24/Dec/2024 18:11:59] DEBUG [myproject:213] split_into_time_blocks 호출 전.
+[24/Dec/2024 18:11:59] DEBUG [myproject:220] get_time_block 호출 전.
+[24/Dec/2024 18:11:59] DEBUG [myproject:222] get_time_block 호출 완료.
